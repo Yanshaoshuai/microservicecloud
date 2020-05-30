@@ -1080,5 +1080,26 @@ public class ConfigClientRest
 
 启动客户端访问localhost:8201/config可以看到相关配置信息
 
+**可能报错及解决**:
+
+在练习SpringCloudConfig配置中心时，访问git上的配置文件，会出现报错 JSchException: Auth fail，
+
+无论使用本地的ssh配置，还是在application.yml中配置private-key都会报错，
+
+经过各种尝试最终发现使用这种方式生成的rsa-key，并配置到github上后问题解决
+
+ssh-keygen -m PEM -t rsa -b 4096 -C "11111111@qq.com"
+
+之前用下面方式生成的rsa-key，在git bash中操作没问题，但在SpringCloudConfig中不好使
+
+ssh-keygen -t rsa -C "11111111@qq.com"
+
+原因可能是
+
+第一种方式生成的私钥是以BEGIN RSA PRIVATE KEY开头，END RSA PRIVATE KEY结尾，
+
+第二种方式生成的私钥是以BEGIN OPENSSH PRIVATE KEY开头，END OPENSSH PRIVATE KEY结尾，
+
+SpringCloudConfig访问git的组件不支持openssh这种格式的秘钥。
 
 
