@@ -1,0 +1,14 @@
+server:
+  port: 3344
+
+spring:
+  application:
+    name:  microservicecloud-config
+  cloud:
+    config:
+      server:
+        git:
+          skipSslValidation: true
+          uri: git@github.com:Yanshaoshuai/microservicecloud-config.git #GitHub上面的git仓库名字
+
+
